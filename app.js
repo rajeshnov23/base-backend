@@ -1,36 +1,47 @@
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+
+const logger = require("./logger");
 require("dotenv").config();
+const mongooseConnect=require("./db/db");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+let userRouter = require("./routes/user");
 
-const mongoose = require("mongoose"); // new
-mongoose.set("strictQuery", false);
-const mongoString = process.env.DATABASE_URL;
-console.log("db env string ", process.env.DATABASE_URL);
+// console.log("db env string ", process.env.DATABASE_URL);
 const app = express();
 //CORS middleware
 const cors = require("cors");
 
-mongoose
-  .connect(mongoString, { useNewUrlParser: true })
+mongooseConnect()
   .then(() => {
     console.log("connected to database -- so loading the app");
-    app.use(logger("dev"));
+
+    logger.log("info", "connected to database -- so loading the app");
+
     app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
+    app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
     app.use(cors());
     app.use(express.static(path.join(__dirname, "public")));
 
+
     app.get("/", (req, res) => {
-      res.send("Hello Geeks");
+      res.send("Hello World");
     });
     // app.use("/api", indexRouter);
-    app.use("/api", usersRouter);
+    // app.use("/api", usersRouter);
+    app.use("/api/user", userRouter);
+
+    app.use((error, req, res, next) => {
+      console.log("Error Handling Middleware called")
+      console.log('Path: ', req.path)
+      console.error('Error: ', error)
+     
+      res.status(500).send(error)
+    })
   })
   .catch((error) => {
     console.log("connection error", error);

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "module": "CommonJS",
+      "target": "es2020",
+      "paths": {
+        "@/controllers/*": ["controllers/*"],
+      }
+    },
+    "exclude": ["node_modules", "**/node_modules/*"]
+  }

@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node", 
+            "request": "launch",
+            "name": "nodemon",
+            "runtimeExecutable": "C:\\Users\\RAVR00\\AppData\\Local\\Yarn\\bin\\nodemon",
+            "program": "${workspaceFolder}/bin/www",
+            "restart": true,
+            "console": "externalTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js"],
+            "env": {
+                "debug": "app:*",
+            }
+        }
+    ]
+}

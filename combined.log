@@ -1,0 +1,1 @@
+{"$__":{"activePaths":{"paths":{"_id":"default","email":"modify","message":"modify","name":"modify"},"states":{"default":{"_id":true},"modify":{"email":true,"message":true,"name":true},"require":{}}}},"_doc":{"_id":"63ebdccb90d844ce7d4af40a","email":"","message":"","name":""},"level":"error","message":"error in the request","service":"base-app"}

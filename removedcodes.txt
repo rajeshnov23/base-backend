@@ -1,0 +1,14 @@
+   // var logger = require("morgan");
+// var rfs = require('rotating-file-stream') // version 2.x
+   
+    // create a rotating write stream
+    // var accessLogStream = rfs.createStream('access.log', {
+    //   interval: '1d', // rotate daily
+    //   path: path.join(__dirname, 'log')
+    // })
+
+    // setup the logger
+    // logger.token('body', req => {
+    //   return JSON.stringify(req.body)
+    // })
+    // app.use(logger(':method :url :status :body', { stream: accessLogStream }));

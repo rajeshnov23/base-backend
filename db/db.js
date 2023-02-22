@@ -3,15 +3,8 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoString = process.env.DATABASE_URL;
 
-mongoose.connect(mongoString);
-const database = mongoose.connection;
+async function main() {
+  await mongoose.connect(mongoString, { useNewUrlParser: true });
+}
 
-database.on("error", (error) => {
-  console.log(error);
-});
-
-database.once("connected", () => {
-  console.log("Database Connected");
-});
-
-// module.exports = database;
+module.exports = main;
