@@ -41,7 +41,12 @@ mongooseConnect()
       console.error('Error: ', error)
      
       res.status(500).send(error)
-    })
+    });
+    process.on('uncaughtException', function(err) {
+  
+      // Handle the error safely
+      console.log("error is caught here")
+  })
   })
   .catch((error) => {
     console.log("connection error", error);
