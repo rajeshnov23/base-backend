@@ -33,7 +33,7 @@ mongooseConnect()
     });
     // app.use("/api", indexRouter);
     // app.use("/api", usersRouter);
-    app.use("/api/user", userRouter);
+    app.use("/api/auth", userRouter);
 
     app.use((error, req, res, next) => {
       console.log("Error Handling Middleware called")
