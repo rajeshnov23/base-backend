@@ -5,11 +5,13 @@
 /tmp
 /out-tsc
 /bazel-out
+/logs
 
 # Node
 /node_modules
 npm-debug.log
 yarn-error.log
+.env
 
 # IDEs and editors
 .idea/
@@ -36,6 +38,9 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+id_rsa_priv.pem
+id_rsa_pub.pem
+logs/
 
 # System files
 .DS_Store

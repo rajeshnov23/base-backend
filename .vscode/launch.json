@@ -5,7 +5,7 @@
             "type": "node", 
             "request": "launch",
             "name": "nodemon",
-            "runtimeExecutable": "C:\\Users\\RAVR00\\AppData\\Local\\Yarn\\bin\\nodemon",
+            "runtimeExecutable": "nodemon",
             "program": "${workspaceFolder}/bin/www",
             "restart": true,
             "console": "externalTerminal",
