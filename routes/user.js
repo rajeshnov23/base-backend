@@ -22,6 +22,9 @@ router.post("/register", async (req, res, next) => {
     if ((await isUserExists(req.body.username)) === true) {
       error = "User already exists in db";
       genErrorResponse(error, res);
+    } else if ((await isEmailExists(req.body.email)) === true) {
+      error = "Email already exists in db";
+      genErrorResponse(error, res);
     } else {
       const saltHash = utils.genPassword(req.body.password);
 
@@ -31,6 +34,7 @@ router.post("/register", async (req, res, next) => {
       const newUser = new UserModel({
         username: req.body.username,
         password: req.body.password,
+        email: req.body.email,
         hash: hash,
         salt: salt,
       });
@@ -94,6 +98,89 @@ async function isUserExists(username) {
   }
 }
 
+async function isEmailExists(email) {
+  console.log(email);
+  let flag = false;
+  try {
+    const result = await UserModel.exists({ email: email });
+    console.log("users exist or not");
+    console.log(result);
+    if (result) {
+      flag = true;
+    } else {
+      flag = false;
+    }
+    return flag;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function isUserNameExists(username) {
+  console.log(username);
+  let flag = false;
+  try {
+    const result = await UserModel.exists({ username: username });
+    console.log("users exist or not");
+    console.log(result);
+    if (result) {
+      flag = true;
+    } else {
+      flag = false;
+    }
+    return flag;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+router.post("/checkEmailExists", async (req, res, next) => {
+  let error = "";
+  let validationCheck = req.body?.email;
+  console.log(validationCheck);
+  if (validationCheck) {
+    if ((await isEmailExists(req.body.email)) === true) {
+      error = "Email is already taken";
+      res.status(422).json({
+        status: "E",
+        statusmessage: "Email is already taken",
+      });
+    } else {
+      res.status(200).json({
+        status: "S",
+        statusmessage: "Email is not taken",
+      });
+    }
+  } else {
+    error = "Email is empty";
+    genErrorResponse(error, res);
+  }
+});
+
+
+router.post("/checkUserNameExists", async (req, res, next) => {
+  let error = "";
+  let validationCheck = req.body?.username;
+  console.log(validationCheck);
+  if (validationCheck) {
+    if ((await isUserNameExists(req.body.username)) === true) {
+      error = "Username is already taken";
+      res.status(422).json({
+        status: "E",
+        statusmessage: "Username is already taken",
+      });
+    } else {
+      res.status(200).json({
+        status: "S",
+        statusmessage: "Username is not taken",
+      });
+    }
+  } else {
+    error = "Username is empty";
+    genErrorResponse(error, res);
+  }
+});
+
 // Validate an existing user and issue a JWT
 router.post("/login", function (req, res, next) {
   let error = "";
@@ -127,12 +214,10 @@ router.post("/login", function (req, res, next) {
             expiresIn: tokenObject.expires,
           });
         } else {
-          res
-            .status(401)
-            .json({
-              status: "E",
-              statusmessage: "you entered the wrong password",
-            });
+          res.status(401).json({
+            status: "E",
+            statusmessage: "you entered the wrong password",
+          });
         }
       })
       .catch((err) => {

@@ -46,6 +46,7 @@ mongooseConnect()
   
       // Handle the error safely
       console.log("error is caught here")
+      console.log(err)
   })
   })
   .catch((error) => {
